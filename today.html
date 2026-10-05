@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-CN"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f5f7fb"><meta name="description" content="热点新闻与抖音热榜，每天早上九点开始更新，手机免登录阅读。">
+<title>每日日报</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232961ed'/%3E%3Cpath d='M9 9h14M9 16h14M9 23h9' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f5f7fb;color:#152033;font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif}main{max-width:680px;margin:auto;padding:44px 22px 36px}header{margin-bottom:26px}.eyebrow{color:#596780;font-size:13px;letter-spacing:.06em;margin:0 0 9px}h1{font-size:32px;letter-spacing:-.05em;margin:0 0 10px;line-height:1.25}.intro{color:#596780;margin:0}.card{display:block;background:#fff;color:inherit;text-decoration:none;border:1px solid #dee5f0;border-radius:18px;padding:24px;margin:16px 0;box-shadow:0 3px 14px #15203305}.card:active{background:#f0f4ff}.card:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid #2961ed;outline-offset:4px}.card-top{display:flex;align-items:center;justify-content:space-between;gap:12px}h2{font-size:23px;margin:0}.arrow{font-size:25px;color:#2961ed}.desc{font-size:15px;color:#66728a;margin:8px 0 18px}.time{font-size:14px;color:#33445f}.status{display:inline-block;font-size:12px;border-radius:6px;padding:3px 8px;background:#edf3ff;color:#2958ae;margin-top:9px}.subtle{color:#66728a;font-size:13px}.extra{display:block;margin:18px 4px;color:#2961ed;text-decoration:none}button{font:inherit;cursor:pointer;border:1px solid #d9e1ee;background:#fff;color:#33445f;border-radius:10px;padding:10px 16px}.footer{border-top:1px solid #dde4ef;padding-top:20px;margin-top:26px;font-size:13px;color:#66728a}.footer p{margin:6px 0}[hidden]{display:none!important}@media(min-width:700px){main{padding-top:76px}h1{font-size:40px}.card{padding:28px}}
+</style></head><body><main>
+<header><p class="eyebrow" id="today-date">手机阅读 · 公开日报</p><h1>每日日报</h1><p class="intro">每天 09:00 开始更新 · 北京时间</p></header>
+<a class="card" href="news/index.html"><div class="card-top"><h2>热点新闻</h2></div><p class="desc">各平台热点与 RSS 资讯，保留原文链接。</p><div class="time" id="news-time">正在读取最近一次报告…</div><span class="status" id="news-status">按实际生成时间展示</span><p class="subtle" id="news-note" hidden></p></a>
+<a class="card" href="index.html"><div class="card-top"><h2>抖音热榜日报</h2></div><p class="desc">六榜前 20 名，查看历史日报与热词变化。</p><div class="time" id="douyin-time">正在读取最近一次日报…</div><span class="status" id="douyin-status">按实际采集时间展示</span></a>
+<a class="extra" id="manus-link" href="news/manus.html" hidden>Manus AI 专栏</a>
+<button id="refresh" type="button">刷新更新时间</button>
+<div class="footer"><p>无需登录；使用手机流量或 Wi-Fi 均可阅读。</p><p>页面显示各自最近一次数据，更新完成时间以页面标注为准。</p><p>每天的自动更新需要电脑开机联网、Codex 正常运行。电脑离线时仍可阅读已发布的日报。</p></div>
+</main><script>
+const byId=id=>document.getElementById(id);
+const format=new Intl.DateTimeFormat('zh-CN',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false});
+const dayFormat=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit'});
+const parse=value=>{if(typeof value!=='string')return new Date(NaN);let normalized=value.replace(' ','T').replace(/(\.\d{3})\d+/, '$1');return new Date(/[zZ]$|[+-]\d{2}:?\d{2}$/.test(normalized)?normalized:normalized+'+08:00')};
+async function read(path){const r=await fetch(path,{cache:'no-store'});if(!r.ok)throw new Error('unavailable');return r.json()}
+function stamp(prefix,date,label){if(!date||Number.isNaN(date.getTime()))throw new Error('unknown date');byId(prefix+'-time').textContent=label+'：'+format.format(date);byId(prefix+'-status').textContent=dayFormat.format(date)===dayFormat.format(new Date())?'今日已有更新':'最近一次 · 尚非今日数据'}
+async function refresh(){byId('refresh').disabled=true;byId('today-date').textContent=dayFormat.format(new Date())+' · 手机阅读';await Promise.allSettled([
+read('news/metadata.json').then(m=>stamp('news',parse(m.generated_at),'报告生成')).catch(()=>{byId('news-time').textContent='更新时间暂时无法读取，仍可进入查看';byId('news-status').textContent='以报告内时间为准'}),
+read('archive.json').then(a=>{const days=(a.days||[]).slice().sort((x,y)=>y.date.localeCompare(x.date));if(!days.length)throw new Error('empty');stamp('douyin',parse(days[0].collectedAt),'最近采集')}).catch(()=>{byId('douyin-time').textContent='更新时间暂时无法读取，仍可进入查看';byId('douyin-status').textContent='以日报内时间为准'}),
+read('news/ready.json').then(r=>{byId('manus-link').hidden=!r.manus_available;const note=byId('news-note');note.hidden=r.status!=='partial';const details=String(r.note||'').split(/[；;]/).filter(s=>s.trim()&&!/等待\s*automation-4\s*合并发布/.test(s)).join('；');note.textContent=r.status==='partial'?String(r.date||'')+' · 部分内容缺失：'+(details||'部分来源未取得，详见新闻报告。'):''}).catch(()=>{byId('manus-link').hidden=true;byId('news-note').hidden=true;byId('news-note').textContent=''})]);byId('refresh').disabled=false}
+byId('refresh').addEventListener('click',refresh);window.addEventListener('pageshow',refresh);document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh()});refresh();
+</script></body></html>
