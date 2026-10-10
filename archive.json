@@ -16295,6 +16295,396 @@
       "warnings": []
     },
     {
+      "date": "2026-10-09",
+      "collectedAt": "2026-10-09T10:27:20.826936+08:00",
+      "boards": [
+        {
+          "id": "hot",
+          "name": "热点榜",
+          "updatedAt": "",
+          "source": "https://so-landing.douyin.com/landings/hotlist?board_type=0&board_sub_type=",
+          "entries": [],
+          "watchEntries": [],
+          "tracking": {
+            "available": false,
+            "missingRanks": [
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50
+            ]
+          }
+        },
+        {
+          "id": "seeding",
+          "name": "种草榜",
+          "updatedAt": "",
+          "source": "https://so-landing.douyin.com/landings/hotlist?board_type=2&board_sub_type=seeding",
+          "entries": [],
+          "watchEntries": [],
+          "tracking": {
+            "available": false,
+            "missingRanks": [
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50
+            ]
+          }
+        },
+        {
+          "id": "entertainment",
+          "name": "娱乐榜",
+          "updatedAt": "",
+          "source": "https://so-landing.douyin.com/landings/hotlist?board_type=2&board_sub_type=2",
+          "entries": [],
+          "watchEntries": [],
+          "tracking": {
+            "available": false,
+            "missingRanks": [
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50
+            ]
+          }
+        },
+        {
+          "id": "society",
+          "name": "社会榜",
+          "updatedAt": "",
+          "source": "https://so-landing.douyin.com/landings/hotlist?board_type=2&board_sub_type=4",
+          "entries": [],
+          "watchEntries": [],
+          "tracking": {
+            "available": false,
+            "missingRanks": [
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50
+            ]
+          }
+        },
+        {
+          "id": "challenge",
+          "name": "挑战榜",
+          "updatedAt": "",
+          "source": "https://so-landing.douyin.com/landings/hotlist?board_type=2&board_sub_type=hotspot_challenge",
+          "entries": [],
+          "watchEntries": [],
+          "tracking": {
+            "available": false,
+            "missingRanks": [
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50
+            ]
+          }
+        },
+        {
+          "id": "guangzhou",
+          "name": "广州榜",
+          "updatedAt": "",
+          "source": "https://so-landing.douyin.com/landings/hotlist?board_type=1&board_sub_type=440100",
+          "entries": [],
+          "watchEntries": [],
+          "tracking": {
+            "available": false,
+            "missingRanks": [
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50
+            ]
+          }
+        }
+      ],
+      "warnings": [
+        "10月9日官方六榜请求均因域名解析失败未取得响应；当天目录写入及发布受限。本次补录当时保存的第三方热点20条，官方六榜仍为缺失。",
+        "热点榜缺少有效更新时间",
+        "热点榜缺少原排名：1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
+        "种草榜缺少有效更新时间",
+        "种草榜缺少原排名：1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
+        "娱乐榜缺少有效更新时间",
+        "娱乐榜缺少原排名：1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
+        "社会榜缺少有效更新时间",
+        "社会榜缺少原排名：1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
+        "挑战榜缺少有效更新时间",
+        "挑战榜缺少原排名：1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
+        "广州榜缺少有效更新时间",
+        "广州榜缺少原排名：1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20"
+      ],
+      "thirdPartySupplement": {
+        "sourceType": "third_party",
+        "sourceName": "A帮手工具箱",
+        "sourceUrl": "https://www.abangshou.com/tools/douyin.html",
+        "updatedAt": "2026-10-09 09:53:30",
+        "retrievedAt": "2026-10-09T11:14:45+08:00",
+        "note": "当日保存的第三方热点榜；未与官方交叉核验，不参与官方趋势与商品机会。",
+        "entries": [
+          {
+            "rank": 1,
+            "title": "己立 再立人",
+            "heat": 12029593
+          },
+          {
+            "rank": 2,
+            "title": "人要长多大才会不恋家",
+            "heat": 11348836
+          },
+          {
+            "rank": 3,
+            "title": "国庆假期服务消费旺盛",
+            "heat": 11102792
+          },
+          {
+            "rank": 4,
+            "title": "足不出户吃遍东南亚美食",
+            "heat": 11102648
+          },
+          {
+            "rank": 5,
+            "title": "国庆假期总结",
+            "heat": 10546162
+          },
+          {
+            "rank": 6,
+            "title": "我镜头里的乡村田园",
+            "heat": 10508794
+          },
+          {
+            "rank": 7,
+            "title": "2027年考研开始预报名",
+            "heat": 9400074
+          },
+          {
+            "rank": 8,
+            "title": "徒步才是秋天的答案",
+            "heat": 9370956
+          },
+          {
+            "rank": 9,
+            "title": "假期好像开了倍速",
+            "heat": 9271214
+          },
+          {
+            "rank": 10,
+            "title": "开始有国庆假期戒断反应了",
+            "heat": 9172614
+          },
+          {
+            "rank": 11,
+            "title": "世卫回应俄罗斯鼠疫事件",
+            "heat": 9171784
+          },
+          {
+            "rank": 12,
+            "title": "海边跳舞太有氛围感了",
+            "heat": 9153365
+          },
+          {
+            "rank": 13,
+            "title": "网传“喀纳斯棕熊索食”系AI编造",
+            "heat": 9033726
+          },
+          {
+            "rank": 14,
+            "title": "我在梦里提出了一个物理猜想",
+            "heat": 8869190
+          },
+          {
+            "rank": 15,
+            "title": "OpenAI发布722篇数学手稿",
+            "heat": 8840870
+          },
+          {
+            "rank": 16,
+            "title": "俄方否认有第二人患不明肺炎",
+            "heat": 8312631
+          },
+          {
+            "rank": 17,
+            "title": "央行阐明人民币汇率政策立场",
+            "heat": 7969985
+          },
+          {
+            "rank": 18,
+            "title": "新就业形态劳动者权益保障新规",
+            "heat": 7948262
+          },
+          {
+            "rank": 19,
+            "title": "U18女篮亚洲杯中国队大胜菲律宾",
+            "heat": 7806405
+          },
+          {
+            "rank": 20,
+            "title": "看大溪地绝美的玻璃巨浪",
+            "heat": 7787171
+          }
+        ],
+        "backfilledAt": "2026-10-10T17:21:55.496042+08:00"
+      }
+    },
+    {
       "date": "2026-10-10",
       "collectedAt": "2026-10-10T17:07:30.367811+08:00",
       "boards": [
