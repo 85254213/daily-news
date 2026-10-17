@@ -6,3 +6,25 @@
 @media(max-width:640px){.research-block{padding:16px}.research-block .opportunity-evidence{padding:8px 0}.research-actions .secondary-button{width:auto;flex:1}.opportunity-filters input{max-width:70%;flex:1}.research-form{width:100%}.research-notice{bottom:12px}.opportunity-products{grid-template-columns:1fr;padding:0}.research-section h2{font-size:20px}}
 
 .research-notice{pointer-events:auto;display:flex;gap:14px;align-items:center}.research-notice[hidden]{display:none}.research-notice button{color:white;font-size:24px;min-width:32px;min-height:40px}
+
+/* Keep repeated research explanations optional; native details supports keyboard and touch. */
+.research-snapshot{list-style:none;margin:12px 0 0;padding:0;font-size:13px;color:var(--color-body)}
+.research-snapshot li{display:flex;gap:4px 14px;flex-wrap:wrap;margin-top:7px}
+.research-snapshot small{flex-basis:100%;color:var(--color-muted);font-size:12px}
+.opportunity-card-head>.research-product-brief{color:var(--color-body);font-size:13px;margin-top:12px}
+.research-product-brief small{display:block;margin-top:4px;color:var(--color-muted);font-size:12px}
+.opportunity-card-head>.research-brief-status{font-size:13px}
+.research-details{border-top:1px solid var(--color-rule)}
+.research-details>summary{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:48px;padding:12px 24px;list-style:none;cursor:pointer;font-size:13px;color:var(--color-muted)}
+.research-details>summary::-webkit-details-marker{display:none}
+.research-details>summary::marker{content:''}
+.research-details>summary:hover{background:var(--color-paper)}
+.research-details>summary:focus-visible{outline:2px solid var(--color-up);outline-offset:-3px}
+.research-details-toggle{display:flex;align-items:center;gap:9px;color:var(--color-up);font-weight:600;white-space:nowrap}
+.research-details-toggle i{width:7px;height:7px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg);margin-top:-4px}
+.research-details .when-open{display:none}
+.research-details[open]>summary{border-bottom:1px solid var(--color-rule)}
+.research-details[open]>summary .when-closed{display:none}
+.research-details[open]>summary .when-open{display:inline}
+.research-details[open]>summary i{transform:rotate(225deg);margin-top:4px}
+@media(max-width:640px){.research-details>summary{padding:12px 16px}}
