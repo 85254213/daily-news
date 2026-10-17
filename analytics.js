@@ -5,7 +5,18 @@
  const stamp=value=>Date.parse(/[TZ]|[+-]\d\d:\d\d$/.test(value||'')?value:String(value).replace(' ','T')+'+08:00');
  const gap=(a,b)=>Date.parse(b+'T00:00:00Z')-Date.parse(a+'T00:00:00Z');
  const valid=(d,b)=>Boolean(b?.updatedAt?.slice(0,10)===d.date&&b.entries?.length);
- const pool=b=>[...(b?.entries||[]),...(b?.watchEntries||[])];
+ function pool(b){
+  const seen=new Set();
+  return [...(b?.entries||[]),...(b?.watchEntries||[])].filter(e=>{
+   if(!e)return false;
+   const id=JSON.stringify([e.rank,e.title]);
+   if(seen.has(id))return false;seen.add(id);return true;
+  });
+ }
+ const validPoint=e=>Number.isInteger(e.rank)&&e.rank>=1&&e.rank<=50&&typeof e.title==='string'&&e.title.trim()&&Number.isFinite(e.heat)&&e.heat>=0;
+ const observations=b=>pool(b).filter(validPoint);
+ const top20=b=>observations(b).filter(e=>e.rank<=20);
+ const completeTop20=b=>{const entries=top20(b),ranks=new Set(entries.map(e=>e.rank));return entries.length===20&&ranks.size===20&&Array.from({length:20},(_,i)=>i+1).every(rank=>ranks.has(rank));};
  const key=(board,title)=>JSON.stringify([board,title]);
  function build(archive,asOf,limit=30){
   const days=archive.days.filter(d=>d.date<=asOf).sort((a,b)=>a.date.localeCompare(b.date));
@@ -15,16 +26,17 @@
   if(!current)return {days:[],records:[],seeds:[],current:null,previous:null,coverage:[]};
   for(const d of days)for(const b of d.boards){
    if(!valid(d,b))continue;
-   for(const e of pool(b)){
-    if(!Number.isInteger(e.rank)||e.rank<1||e.rank>50||!Number.isFinite(e.heat))continue;
+   for(const e of observations(b)){
     const k=key(b.id,e.title);
     if(!map.has(k))map.set(k,{key:k,title:e.title,boardId:b.id,boardName:b.name,history:[]});
-    map.get(k).history.push({...e,date:d.date,collectedAt:d.collectedAt,updatedAt:b.updatedAt,source:b.source});
+    const history=map.get(k).history;
+    if(history.at(-1)?.date===d.date)continue;
+    history.push({...e,date:d.date,collectedAt:d.collectedAt,updatedAt:b.updatedAt,source:b.source});
    }
   }
-  const shared=current.boards.filter(b=>b.entries.length===20&&valid(current,b)&&previous?.boards.some(p=>p.id===b.id&&p.entries.length===20&&valid(previous,p))).map(b=>b.id);
-  const counts=d=>{const out=new Map();for(const b of d?.boards||[])if(shared.includes(b.id))for(const e of b.entries){if(!out.has(e.title))out.set(e.title,new Set());out.get(e.title).add(b.id);}return out;};
-  const prevCounts=counts(previous),curCounts=counts(current),hotTitles=new Set(current.boards.flatMap(b=>valid(current,b)?b.entries.map(e=>e.title):[]));
+  const shared=current.boards.filter(b=>completeTop20(b)&&valid(current,b)&&previous?.boards.some(p=>p.id===b.id&&completeTop20(p)&&valid(previous,p))).map(b=>b.id);
+  const counts=d=>{const out=new Map();for(const b of d?.boards||[])if(shared.includes(b.id))for(const e of top20(b)){if(!out.has(e.title))out.set(e.title,new Set());out.get(e.title).add(b.id);}return out;};
+  const prevCounts=counts(previous),curCounts=counts(current),hotTitles=new Set(current.boards.flatMap(b=>valid(current,b)?top20(b).map(e=>e.title):[]));
   const records=[];
   for(const record of map.values()){
    const history=record.history,selected=history.filter(e=>Date.parse(e.date+'T00:00:00Z')>=cutoff);
@@ -47,8 +59,8 @@
     first:history[0].date,last:latest.date,appearances:new Set(selected.map(e=>e.date)).size,
     peak:Math.max(...selected.map(e=>e.heat)),bestRank:Math.min(...selected.map(e=>e.rank)),spreadBefore,spreadNow});
   }
-  const coverage=current.boards.map(b=>({id:b.id,name:b.name,valid:valid(current,b),count:valid(current,b)?pool(b).length:0,
-    watchCount:valid(current,b)?(b.watchEntries||[]).length:0,available:Boolean(b.tracking?.available&&valid(current,b)),missing:b.tracking?.missingRanks||[]}));
+  const coverage=current.boards.map(b=>({id:b.id,name:b.name,valid:valid(current,b),count:valid(current,b)?observations(b).length:0,
+    watchCount:valid(current,b)?observations(b).filter(e=>e.rank>20).length:0,available:Boolean(b.tracking?.available&&valid(current,b)),missing:b.tracking?.missingRanks||[]}));
   return {days:visible,records,current,previous,coverage,seeds:records.filter(r=>r.seed).sort((a,b)=>b.percent-a.percent)};
  }
  const api={build,pool,key,stamp};

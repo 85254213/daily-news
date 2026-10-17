@@ -52,15 +52,17 @@
       window };
   }
 
-  function entriesCount(entries) {
+  const formalLimit = (day, board) => [20, 50].includes(board?.rankLimit) ? board.rankLimit : [20, 50].includes(day?.rankLimit) ? day.rankLimit : 20;
+
+  function entryRanks(entries, limit) {
     const source = Array.isArray(entries) ? entries : [];
     const counts = new Map();
     source.forEach(e => { const rank = e?.rank ?? e?.position; counts.set(rank, (counts.get(rank) || 0) + 1); });
     return source.filter(e => {
       const rank = e?.rank ?? e?.position, title = e?.title ?? e?.word, heat = e?.heat ?? e?.hot_value;
-      return Number.isInteger(rank) && rank >= 1 && rank <= 20 && counts.get(rank) === 1 &&
+      return Number.isInteger(rank) && rank >= 1 && rank <= limit && counts.get(rank) === 1 &&
         typeof title === 'string' && title.trim() && Number.isInteger(heat) && heat >= 0;
-    }).length;
+    }).map(e => e.rank ?? e.position);
   }
 
   function inspectDay(day, now) {
@@ -70,15 +72,18 @@
     const boards = Array.isArray(day?.boards) ? day.boards : [];
     const details = BOARDS.map(([id, name]) => {
       const matches = boards.filter(b => b?.id === id || (!b?.id && b?.name === name));
-      if (matches.length !== 1) return { name, count: 0, reason: matches.length ? '榜单记录重复' : '未取得榜单' };
-      const b = matches[0], updatedAt = parseTimestamp(b.updatedAt ?? b.active_time);
-      if (updatedAt === null || updatedAt > now || dayKey(updatedAt) !== date) return { name, count: 0, reason: '缺少当日有效榜单时间' };
-      const count = entriesCount(b.entries);
-      return { name, count, reason: count === 20 ? '' : `有效原排名 ${count}/20` };
+      if (matches.length !== 1) return { name, count: 0, expected: formalLimit(day), reason: matches.length ? '榜单记录重复' : '未取得榜单' };
+      const b = matches[0], expected = formalLimit(day, b), updatedAt = parseTimestamp(b.updatedAt ?? b.active_time);
+      if (updatedAt === null || updatedAt > now || dayKey(updatedAt) !== date) return { name, count: 0, expected, reason: '缺少当日有效榜单时间' };
+      const ranks = entryRanks(b.entries, expected), count = ranks.length;
+      const missingRanks = Array.from({ length: expected }, (_, i) => i + 1).filter(rank => !ranks.includes(rank));
+      return { name, count, expected, missingRanks, reason: count === expected ? '' : `有效原排名 ${count}/${expected}，缺少原排名 ${missingRanks.join('、')}` };
     });
     const count = details.reduce((n, b) => n + b.count, 0);
-    const fullBoards = details.filter(b => b.count === 20).length;
-    return { date, collectedAt, timeValid, count, fullBoards, details,
+    const fullBoards = details.filter(b => b.count === b.expected).length;
+    const expected = details.reduce((n, b) => n + b.expected, 0);
+    const limits = [...new Set(details.map(b => b.expected))];
+    return { date, collectedAt, timeValid, count, expected, rankLimit: limits.length === 1 ? limits[0] : null, fullBoards, details,
       complete: fullBoards === 6 && !(Array.isArray(day?.warnings) && day.warnings.length) && timeValid,
       hasWarnings: Array.isArray(day?.warnings) && day.warnings.length > 0,
       supplement: day?.thirdPartySupplement || null };
@@ -92,8 +97,8 @@
     const latest = days[0] || null;
     const lastValid = days.find(d => d.timeValid && d.count > 0);
     const result = state(lastValid?.collectedAt ?? null, latest?.complete || false, window, days.some(d => d.count > 0 && !d.timeValid));
-    return { ...result, latest, count: latest?.count ?? 0, fullBoards: latest?.fullBoards ?? 0,
-      coverageKnown: !!latest, coverageText: latest ? `本轮官方前20名：${latest.count}/120 条 · 完整榜 ${latest.fullBoards}/6` : '官方覆盖：暂无可读归档',
+    return { ...result, latest, count: latest?.count ?? 0, expected: latest?.expected ?? null, rankLimit: latest?.rankLimit ?? null, fullBoards: latest?.fullBoards ?? 0,
+      coverageKnown: !!latest, coverageText: latest ? `本轮官方${latest.rankLimit ? '前' + latest.rankLimit + '名' : '按各榜收录范围'}：${latest.count}/${latest.expected} 条 · 完整榜 ${latest.fullBoards}/6` : '官方覆盖：暂无可读归档',
       gaps: latest ? latest.details.filter(b => b.reason).map(b => `${b.name}：${b.reason}`) : [],
       latestAttemptAt: latest?.timeValid ? latest.collectedAt : null,
       supplement: latest?.supplement?.sourceType === 'third_party' ? latest.supplement : null };
