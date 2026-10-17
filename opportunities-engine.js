@@ -2,10 +2,10 @@
 (function(root){
  'use strict';
  const trends=typeof module!=='undefined'&&module.exports?require('./analytics.js'):root.TrendAnalytics;
- const categories={baking:'食品烘焙',food:'餐饮食品',gardening:'园艺种植',craft:'手工材料',cleaning:'家清收纳',other:'其他／待拆解'};
+ const categories={food:'美食餐饮',cooking:'做菜料理',baking:'食品烘焙',drinks:'饮品茶饮'};
  const productRoles={finished:'成品',material:'原料',tool:'工具',mold:'模具',consumable:'耗材',accessory:'配件',packaging:'包装',bundle:'组合装'};
  const autoBoards=new Set(['hot','seeding','guangzhou']);
- const excluded=/演唱会|舞台|翻唱|歌词|歌单|BGM|电影|票房|定档|演员|电视剧|影集|配音|舞蹈|翻跳|摇$|事故|车祸|去世|逝世|死亡|中毒|召回|查获|诈骗|电诈|警方|曝光|海关|吃得太好了|餐馆|咖啡馆|茶花|茶汤|爆蛋|面包车|蛋糕裙|分蛋糕|新闻|股价|融资|地震|洪灾|火灾|枪击|战争|抢救|国足|战胜|赛事|执法|通报|发霉|霉变|过期|处罚|维权|致敏|过敏|纠纷|投诉|质量问题|不合格|劣质|假冒|伪劣|安全隐患|伤人/i;
+ const excluded=/演唱会|舞台|翻唱|歌词|歌单|BGM|电影|票房|定档|电视剧|影集|配音|舞蹈|翻跳|摇$|事故|车祸|去世|逝世|死亡|中毒|召回|查获|诈骗|电诈|警方|曝光|海关|吃得太好了|茶花|爆蛋|面包车|蛋糕裙|分蛋糕|新闻|股价|融资|地震|洪灾|火灾|枪击|战争|抢救|国足|战胜|赛事|执法|通报|发霉|霉变|过期|处罚|维权|致敏|过敏|纠纷|投诉|质量问题|不合格|劣质|假冒|伪劣|安全隐患|伤人/i;
  const commonGaps=['具体使用者与使用场景仍需原内容支持。','商品关系来自规则解释，不能据此确认购买需求。','等待后续有效快照，核对话题是否持续；页面刷新不触发新的采集。','同名记录按原规则展示，但是否为同一持续事件仍需原内容确认。'];
  const foodSpecs=['核对配料与规格、保存条件和保质期','涉及温控的原料需确认实际运输与保存条件'];
  const contactSpecs=['核对食品接触面材料与适用温度资料','核对尺寸、清洗方式及用途适配'];
@@ -18,17 +18,31 @@
   {match:/口蘑焗牛肉/,category:'food',scenario:'制作口蘑焗牛肉',audience:['研究焗菜做法的人'],products:[p('ingredients','口蘑与牛肉原料','material',['口蘑 规格','牛肉切片 原料'],'标题指向口蘑与牛肉的制作搭配。',['核对原内容中的肉类部位及切片厚度'],foodSpecs),p('pot','带盖焗锅与分量秤','tool',['焗锅 带盖','厨房分量秤'],'可能用于焗制及分量控制。',['先核对原视频加热方式；焗不一定使用烤箱'],[...contactSpecs,'核对炉具适配与每份容量']),p('container','防漏热食餐盒','packaging',['焗菜餐盒 防漏'],'仅在热食携带场景提供承装用途。',['先确认携带场景和温度条件'],packagingSpecs)]}
  ];
  const bakingSpecs=[['蛋挞','挞皮与挞液','蛋挞模具','蛋挞托与防压盒'],['面包','面粉与酵母','面包模具与烤盘','面包袋与纸托'],['蛋糕','蛋糕原料与奶油','蛋糕模具与裱花工具','蛋糕底托与防压盒'],['曲奇','低筋面粉与黄油','曲奇模具与烤盘','曲奇袋与分格盒'],['司康','低筋面粉与黄油','司康切模与烤盘','司康纸托与小盒'],['麻薯','麻薯粉与馅料','分量秤与烤盘','麻薯纸托与包装盒']];
+ // Scope is broader than product templates: a food topic can remain undecomposed.
+ function researchScope(value){
+  if(typeof value!=='string'||!value.trim())return null;
+  // A nickname alone is not food evidence; any remaining explicit food context may qualify.
+  const title=value.trim().replace(/奶茶妹妹/g,'');
+  const nonFood=/吃瓜|饭圈|饭撒|下饭剧|下饭综艺|吃鸡上分|吃鸡游戏|喝彩|茶里茶气|苹果手机|小米发布会|画饼|蛋仔|捏捏|食玩|仿真|奶油胶|黏土|粘土|串珠|拼豆|乐高|玩具|cosplay|二次元|模拟器|游戏|穿搭|发色|染发|口红|美甲|蛋糕裙|裙子|连衣裙|草莓鼻|眼影|香水|咖啡色|奶茶色|彩妆|妆容|音乐节|演唱会|翻唱|歌词|歌单|歌名|BGM|电影|奥斯卡|票房|定档|电视剧|影集|手势舞|舞蹈|翻跳|育苗|播种|种植|园艺|绿植|盆栽|肥料|土壤|基质|花卉|清洁|去污|除垢|油污|拖把|粘毛器|收纳盒|打架|斗殴|抢劫|刑拘|判刑|绯闻|离婚|我说再喝一碗我熬的茶汤|咖啡馆的那个座位|茶花开了该回家/i;
+  if(nonFood.test(title))return null;
+  if(/面包车|分蛋糕|蛋糕经济|草莓音乐|荔枝音乐|蒸蒸日上|炒股|炒房|炒作|被.{0,8}炒鱿鱼|老板.{0,8}炒鱿鱼|炒鱿鱼.{0,8}(?:裁员|失业|离职|工作)|炸鱼局|游戏炸鱼|英雄联盟|王者荣耀|清洗(?:厨房|油烟机|空调|地板|厕所|马桶)|厨房清洗/.test(title))return null;
+  if(/烘焙|蛋挞|蛋烘糕|蛋糕|面包|吐司|贝果|可颂|曲奇|司康|麻薯|泡芙|马卡龙|月饼|饼干|酥皮|馕|肉火烧|裱花|打蛋器/.test(title))return {category:'baking',reason:'明确烘焙食品或烘焙制作工具'};
+  if(/饮品|饮料|奶茶|咖啡|果茶|果汁|茶饮|茶汤|早茶|叹茶|杨枝甘露|柠檬茶|奶盖|拿铁|气泡水|冷萃|抹茶|豆浆|酸梅汤|调酒|米酒|好喝/.test(title))return {category:'drinks',reason:'明确饮品、茶饮或饮用场景'};
+  if(/做菜|炒菜|烹饪|烹调|料理|菜谱|食谱|家常菜|家常做法|下厨|厨艺|新菜|菜品|烤箱|空气炸锅|料理机|蒸锅|蒸笼|炒锅|煎锅|汤锅|砧板|菜板|厨房秤|量勺|擀面杖/.test(title))return {category:'cooking',reason:'明确料理做法、菜谱或食物制作工具'};
+  if(/清洗|焯水|去腥/.test(title)&&/小龙虾|猪肚|猪肠|肥肠|贝类|蛤蜊|螃蟹|鱼|虾|鸡|鸭|肉|排骨|蔬菜|水果|蘑菇/.test(title))return {category:'cooking',reason:'明确食材预处理方式'};
+  const foodIngredient=/鸡|鸭|鱼|肉|排骨|虾|蟹|蛋|豆腐|黄豆|土豆|南瓜|茄子|白菜|萝卜|青椒|猪耳|口蘑|香芋/;
+  if(/炖|焗|炒|煎|烤|蒸|炸|煮|白切|炭烤/.test(title)&&foodIngredient.test(title))return {category:'cooking',reason:'具体食材与烹调方式共同出现'};
+  if(/美食|小吃|餐饮|餐食|餐厅|餐馆|饭店|菜馆|食堂|吃饭|用餐|早餐|午餐|晚餐|下午茶|夜宵|吃播|试吃|食材|零食|甜品|甜点|冰淇淋|冰激凌|雪糕|糖葫芦|糯米饭|猪脚饭|鸡饭|火锅|地锅鸡|白切鸡|腊肉|香肠|牛排|靓汤|面条|拉面|馄饨|饺子|包子|馒头|煎饼|米饭|叉烧|烧腊|粽子|咸蛋黄|哑巴兔|大盘鱼/.test(title))return {category:'food',reason:'明确食物、餐饮或美食体验'};
+  const ingredient=/苹果|草莓|香蕉|荔枝|葡萄|桃子|橙子|柠檬|蓝莓|芒果|榴莲|西瓜|椰子|黄瓜|番茄|燕麦|奶油|黄油|豆腐|口蘑|排骨|牛肉|羊肉|猪肉|鸡肉|虾仁|鸡翅|猪耳|鸡爪|南瓜|青椒/;
+  if(ingredient.test(title)&&/发霉|霉变|过期|处罚|维权|致敏|过敏|纠纷|投诉|质量问题|不合格|劣质|假冒|伪劣/.test(title))return {category:'food',reason:'明确食品或食材问题，仅供核对原内容'};
+  if(ingredient.test(title)&&/食用|好吃|美味|真香|超香|香到|想吃|吃不|吃了|饮食|营养|制作|做法|味道|早餐|午餐|晚餐|夜宵/.test(title))return {category:'food',reason:'具体食材与食用语境共同出现'};
+  return null;
+ }
  function classify(title){
   if(excluded.test(title))return null;
   const spec=bakingSpecs.find(x=>title.includes(x[0]));
   if(spec)return {category:'baking',scenario:'研究'+spec[0]+'的制作与成品保护',audience:['制作'+spec[0]+'的人','需要成品保护配套的人'],products:[p('ingredients',spec[1],'material',[spec[1]+' 烘焙 原料'],'与该类烘焙制作可能使用的原料有关。',['需先确认原内容是制作需求，而非只展示成品'],foodSpecs),p('mold',spec[2],spec[0]==='麻薯'?'tool':'mold',[spec[2]+' 尺寸'],'制作时可能用于成形、定量或承托。',['以实际配方、形状和加热方式为前提'],[...contactSpecs,'核对成品形状与烤箱内尺寸，观察脱模、断裂与受热情况']),p('packaging',spec[3],'packaging',[spec[3]+' 内尺寸'],'仅在携带或展示成品时提供保护。',['先确认成品保护场景，不据此推断购买需求'],packagingSpecs)]};
   const food=recipes.find(x=>x.match.test(title));if(food)return food;
-  if(/育苗|播种/.test(title)&&/育苗|苗盘|基质|播种教程|播种方法|播种做法|播种记录|播种种植/.test(title))return {category:'gardening',scenario:'种子播种与育苗管理',audience:['进行播种育苗的种植者'],products:[p('substrate','育苗基质','material',['育苗基质 种类'],'育苗容器内可能需要适合该植物的基质。',['先确认植物种类与播种方式'],['核对基质组成、颗粒、保水与透气条件'],['是否适合该植物及当前生长阶段？']),p('tray','育苗盘','tool',['育苗盘 孔径 深度'],'用于分格承载育苗基质与幼苗。',['仅容器育苗场景适用'],['核对孔径、深度、排水孔、托盘尺寸及材料'],['根系空间与后续移栽方式是否匹配？']),p('label','植物标记标签','accessory',['育苗标签 可书写'],'用于区分品种和播种日期。',['存在多品种或记录需要时可选'],['核对标签尺寸、书写耐久性与户外条件'])]};
-  if(/串珠/.test(title)&&/DIY|手工|教程|制作|自制|编织|做法|材料/i.test(title)&&!/成品|直接戴|现成|穿搭|开箱|购买|买的|买了|买到|买来/.test(title))return {category:'craft',scenario:'自行制作串珠饰品',audience:['自行制作串珠的人'],products:[p('beads','珠子与线材','material',['串珠 珠子 孔径','串珠线材 线径'],'自行串珠需要孔径匹配的珠子和线材。',['仅DIY制作需求；不能外推至购买成品饰品的人'],['核对珠孔内径、线径、材料及预期成品长度']),p('connector','连接件与扣件','accessory',['串珠连接件','饰品扣件 尺寸'],'部分结构需要连接或闭合配件。',['只在具体款式需要连接件时适用'],['核对孔径、开口方式、连接强度及皮肤接触材料']),p('pliers','串珠钳与剪线工具','tool',['串珠钳','剪线工具'],'在使用连接件或裁剪线材时提供操作工具。',['软线套穿等简单做法未必需要全部工具'],['按线材及连接件材质核对工具适用范围'])]};
-  const flat=/平板拖把/.test(title)&&/清洁|拖地|替换|换布|安装|使用|教程|拖布/.test(title);
-  const mop=/蒸汽拖把/.test(title)&&/清洁|替换|安装|使用|教程|清洁布/.test(title);
-  const roller=/粘毛器|粘毛滚筒/.test(title)&&/清洁|替换|替芯|安装|使用|教程|粘毛/.test(title);
-  if(flat||mop||roller){const kind=flat?'平板拖把':mop?'蒸汽拖把':'粘毛器';return {category:'cleaning',scenario:kind+'清洁与兼容替换件核对',audience:['正在使用该类清洁工具的人'],products:[p('tool',kind,'tool',[kind+' 型号'],'工具用于标题所指的清洁任务。',['先核对清洁表面、材质及工具适用范围'],[mop?'核对表面是否适合热蒸汽及设备使用条件':'核对清洁表面与工具适配条件']),p('replacement',roller?'兼容粘毛替芯':'兼容替换清洁布','consumable',[kind+(roller?' 替芯 尺寸':' 替换布 尺寸 接口')],'替换件只有在尺寸和连接方式一致时才能配合原工具使用。',['必须核对具体型号、接口及尺寸；同类清洁用品不代表兼容'],[roller?'核对替芯宽度、内径及滚筒固定方式':'核对布面长宽、固定方式与材质',mop?'另核对耐温条件与设备使用要求':'核对目标表面与清洁方法'],['原工具的确切型号是什么？','该替换件是否有明确的适配信息？'])]};}
   return null;
  }
  const timestamp=value=>{if(typeof value!=='string'||!value)return NaN;const s=value.replace(' ','T');return Date.parse(/^\d{4}-\d{2}-\d{2}$/.test(s)?s+'T00:00:00+08:00':/[zZ]$|[+-]\d{2}:?\d{2}$/.test(s)?s:s+'+08:00');};
@@ -57,24 +71,25 @@
   const observationScope={from:scopeDates[0]||null,to:asOf,days:scopeDates.length,boards:[...new Set(input.days.flatMap(d=>d.boards.map(b=>b.id)))],knowledgeAt:Number.isFinite(cutoff)?new Date(cutoff).toISOString():null,label:scopeDates.length?`本系统可用归档 ${scopeDates[0]}—${asOf}（${scopeDates.length}份），只表示首次收录，不代表平台首次出现`:'本系统暂无可用归档，首次收录未知'};
   const candidates=new Map();
   for(const [title,records] of byTitle){
+   const scope=researchScope(title);if(!scope)continue;
    const active=current?records.filter(r=>r.active&&r.latest.date===asOf):[];
    const allowed=active.filter(r=>autoBoards.has(r.boardId));
    const first=records.flatMap(r=>r.history).sort((a,b)=>timestamp(a.collectedAt)-timestamp(b.collectedAt))[0];
    const id=candidateId(title),pref=preferenceMap.get(id),plan=classify(title);
-   const auto=!excluded.test(title)&&allowed.length>0&&(plan||allowed.some(r=>r.seed||r.sustained||r.spread)||first?.date===asOf);
-   if(auto||(pref&&(pref.addedAt||pref.followed||pref.ignored)))candidates.set(title,{records,active,allowed,first,id,pref,plan:(allowed.length||(pref&&!active.length&&records.some(r=>autoBoards.has(r.boardId))))?plan:null,auto:Boolean(auto)});
+   const auto=!excluded.test(title)&&allowed.length>0;
+   if(auto||(pref&&(pref.addedAt||pref.followed||pref.ignored)))candidates.set(title,{records,active,allowed,first,id,pref,scope,plan:(allowed.length||(pref&&!active.length&&records.some(r=>autoBoards.has(r.boardId))))?plan:null,auto:Boolean(auto)});
   }
-  for(const [id,pref] of preferenceMap){const title=titleFromId(id);if((pref.addedAt||pref.followed||pref.ignored)&&!candidates.has(title))candidates.set(title,{records:[],active:[],allowed:[],first:null,id,pref,plan:null,auto:false});}
+  for(const [id,pref] of preferenceMap){const title=titleFromId(id),scope=researchScope(title);if(scope&&(pref.addedAt||pref.followed||pref.ignored)&&!candidates.has(title))candidates.set(title,{records:[],active:[],allowed:[],first:null,id,pref,scope,plan:null,auto:false});}
   const cards=[];
   for(const [title,c] of candidates){
-   const {records,active,first,id,pref,plan}=c,scenarioId=id+':scenario';
+   const {records,active,first,id,pref,plan,scope}=c,scenarioId=id+':scenario';
    const manualAdded=Boolean(pref?.addedAt),signals=c.allowed.length?c.allowed:(manualAdded?active:[]);
    const otherBoardSignals=active.filter(r=>!signals.includes(r));
    const rising=signals.some(s=>s.seed||s.sustained||s.spread),cooling=signals.length>0&&signals.every(s=>s.cooling),hasCurrentObservation=active.length>0;
    const stage=!hasCurrentObservation?'unobserved':rising?'rising':cooling?'cooling':'watch';
    const reasons=[...new Set(signals.flatMap(s=>[s.seed?'低位升温':null,s.sustained?'连续升温':null,s.spread?'跨榜扩散':null].filter(Boolean)))];
    const firstToday=first?.date===asOf;
-   const sourceReasons=[...(rising?reasons:[]),...(firstToday?['本系统首次收录']:[]),...(manualAdded?['用户加入研究候选']:pref?.ignored?['本机标记不相关']:pref?.followed?['本机关注偏好']:[]),...(plan&&!rising&&!firstToday?['已有关联模板，等待更多证据']:[])];
+   const sourceReasons=[scope.reason,...(rising?reasons:[]),...(firstToday?['本系统首次收录']:[]),...(manualAdded?['用户加入研究候选']:pref?.ignored?['本机标记不相关']:pref?.followed?['本机关注偏好']:[]),...(!rising&&!firstToday?[plan?'已有关联模板，等待更多证据':'食品相关，等待用途拆解']:[])];
    const products=makeProducts(plan,id),targets=new Set(['topic:'+id,'scenario:'+scenarioId,...products.map(p=>'product:'+p.productKey)]);
    const evidence=availableEvidence(options.evidence,targets,cutoff);
    for(const product of products)product.evidenceRefs=evidence.filter(e=>e.targetType==='product'&&e.targetId===product.productKey).map(e=>e.evidenceId);
@@ -92,7 +107,7 @@
    const recommendationReasons=!hasCurrentObservation?['所选日期没有有效同题记录，暂不判断趋势。']:cooling?['用于本卡判断的同题有效记录均满足既有回落条件。']:!products.length?['话题可以继续研究，但尚无明确商品关系。']:rising?[`命中${reasons.join('、')}，且有可解释的商品关系。`]:['已有相关线索，尚无满足规则的升温证据。'];
    recommendationReasons.push('购买需求尚未验证，研究优先级不代表商业结果。');
    const last=records.flatMap(r=>r.history).sort((a,b)=>timestamp(b.collectedAt)-timestamp(a.collectedAt))[0]||null;
-   cards.push({id,candidateId:id,title,category:plan?.category||'other',industry:categories[plan?.category||'other'],stage,stageLabel:stage==='unobserved'?'缺少有效观察':rising?'有升温信号':cooling?'热度回落':'待核对',section:rising?'rising':'review',reason:sourceReasons.join('；')||'保留本机偏好，等待有效观察。',sourceReasons,candidateSource:manualAdded?(c.auto?'automatic_and_manual':'manual'):c.auto?'automatic':'local_preference',firstDate:first?.date||null,firstRecordedAt:first?.collectedAt||null,isFirstRecorded:firstToday,observationScope,scenario:plan?.scenario||'待核对原内容中的实际使用场景',scenarioId,audience:plan?.audience||[],products,signals,otherBoardSignals,historicalSignals:records,hasCurrentObservation,lastObservedAt:last?.collectedAt||null,lastObservedDate:last?.date||null,facts,evidence,evidenceGaps:gaps,originalContentUrl,recommendation,reasons:recommendationReasons,displayTheme:themeFor(title,options,cutoff),followed:pref?.followed||false,ignored:pref?.ignored||false,manualAdded,preference:pref||null,nextStep:!hasCurrentObservation?'查看历史记录与已有证据，等待后续有效快照。':!plan?'先查原内容，核对具体使用场景；没有明确关系时保持待拆解。':'查看原内容并逐项核对用途、规格与兼容条件，继续观察后续快照。',validation:[...commonGaps]});
+   cards.push({id,candidateId:id,title,category:scope.category,industry:categories[scope.category],researchScope:scope,scopeReason:scope.reason,stage,stageLabel:stage==='unobserved'?'缺少有效观察':rising?'有升温信号':cooling?'热度回落':'待核对',section:rising?'rising':'review',reason:sourceReasons.join('；')||'保留本机偏好，等待有效观察。',sourceReasons,candidateSource:manualAdded?(c.auto?'automatic_and_manual':'manual'):c.auto?'automatic':'local_preference',firstDate:first?.date||null,firstRecordedAt:first?.collectedAt||null,isFirstRecorded:firstToday,observationScope,scenario:plan?.scenario||'待核对原内容中的实际使用场景',scenarioId,audience:plan?.audience||[],products,signals,otherBoardSignals,historicalSignals:records,hasCurrentObservation,lastObservedAt:last?.collectedAt||null,lastObservedDate:last?.date||null,facts,evidence,evidenceGaps:gaps,originalContentUrl,recommendation,reasons:recommendationReasons,displayTheme:themeFor(title,options,cutoff),followed:pref?.followed||false,ignored:pref?.ignored||false,manualAdded,preference:pref||null,nextStep:!hasCurrentObservation?'查看历史记录与已有证据，等待后续有效快照。':!plan?'先查原内容，核对具体使用场景；没有明确关系时保持待拆解。':'查看原内容并逐项核对用途、规格与兼容条件，继续观察后续快照。',validation:[...commonGaps]});
   }
   const priority={rising:0,watch:1,unobserved:2,cooling:3};
   cards.sort((a,b)=>priority[a.stage]-priority[b.stage]||Math.min(...a.signals.map(s=>s.latest.rank),Infinity)-Math.min(...b.signals.map(s=>s.latest.rank),Infinity)||a.title.localeCompare(b.title,'zh-CN'));
@@ -114,7 +129,7 @@
   lines.push('','【下一步核对】',card.nextStep,...(card.validation||[]),'','此清单仅记录公开线索、关系推断与核对点，不确认购买需求。');
   return lines.filter(x=>x!=='').join('\n');
  }
- const api={build,exportText,candidateId,categories,productRoles};
+ const api={build,exportText,candidateId,researchScope,categories,productRoles};
  if(typeof module!=='undefined'&&module.exports)module.exports=api;
  root.CommerceOpportunities=api;
 })(typeof globalThis!=='undefined'?globalThis:this);
