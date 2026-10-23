@@ -3,80 +3,74 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Manus AI 相关新闻 - 2026-10-22</title>
+  <meta name="color-scheme" content="light dark">
+  <title>Manus AI 相关新闻｜2026-10-23</title>
   <style>
-    :root { color-scheme: light dark; --bg:#f5f7fb; --panel:#fff; --text:#182033; --muted:#687386; --line:#dfe5ee; --accent:#3157d5; }
+    :root { color-scheme: light dark; --bg: #f6f7f9; --panel: #fff; --text: #172033; --muted: #667085; --line: #d9dee8; --accent: #2058a8; }
+    @media (prefers-color-scheme: dark) { :root { --bg: #111827; --panel: #1f2937; --text: #eef2f7; --muted: #aeb8c7; --line: #374151; --accent: #8ab4f8; } }
     * { box-sizing: border-box; }
-    body { margin:0; background:var(--bg); color:var(--text); font:16px/1.65 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; }
-    main { width:min(760px,100%); margin:0 auto; padding:20px 14px 40px; }
-    header { padding:4px 2px 14px; border-bottom:1px solid var(--line); }
-    h1 { margin:0 0 8px; font-size:24px; line-height:1.3; }
-    .meta { margin:4px 0; color:var(--muted); font-size:14px; }
-    .note { margin:14px 0 0; padding:10px 12px; border-left:3px solid var(--accent); background:color-mix(in srgb,var(--panel) 88%,var(--accent)); }
-    ol { margin:18px 0 0; padding:0; list-style:none; counter-reset:item; }
-    li { counter-increment:item; padding:16px 2px; border-bottom:1px solid var(--line); }
-    li::before { content:counter(item); display:inline-grid; place-items:center; width:28px; height:28px; margin-right:8px; border-radius:50%; background:var(--accent); color:#fff; font-weight:700; }
-    h2 { display:inline; margin:0; font-size:18px; line-height:1.45; }
-    .date { margin:8px 0 4px 36px; color:var(--muted); font-size:14px; }
-    p { margin:6px 0 0 36px; }
-    .sources { margin-left:36px; font-size:14px; }
-    a { color:var(--accent); overflow-wrap:anywhere; }
-    .back { display:inline-block; margin-top:22px; font-weight:650; }
-    @media (prefers-color-scheme:dark) {
-      :root { --bg:#111722; --panel:#1a2230; --text:#edf2f8; --muted:#a8b2c2; --line:#303b4b; --accent:#88a6ff; }
-      li::before { color:#101827; }
-    }
+    body { margin: 0; background: var(--bg); color: var(--text); font-family: system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; line-height: 1.6; }
+    main { width: min(760px, 100%); margin: 0 auto; padding: 18px 14px 40px; }
+    nav { margin-bottom: 14px; }
+    a { color: var(--accent); text-underline-offset: 3px; }
+    h1 { margin: 0 0 6px; font-size: 1.55rem; letter-spacing: 0; }
+    .meta, .note { color: var(--muted); font-size: .92rem; }
+    .note { margin: 14px 0 18px; padding: 10px 12px; border-left: 3px solid var(--accent); background: var(--panel); }
+    ol { margin: 0; padding: 0; list-style: none; counter-reset: news; }
+    li { counter-increment: news; position: relative; margin: 0; padding: 14px 12px 14px 46px; border-top: 1px solid var(--line); background: var(--panel); }
+    li:last-child { border-bottom: 1px solid var(--line); }
+    li::before { content: counter(news); position: absolute; left: 14px; top: 15px; width: 24px; height: 24px; display: grid; place-items: center; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 700; font-size: .8rem; }
+    h2 { margin: 0 0 5px; font-size: 1.05rem; letter-spacing: 0; }
+    p { margin: 5px 0; }
+    .date { color: var(--muted); font-size: .88rem; }
+    .source { font-size: .92rem; }
   </style>
 </head>
 <body>
   <main>
-    <header>
-      <h1>Manus AI 相关新闻前十</h1>
-      <p class="meta">日报日期：2026-10-22</p>
-      <p class="meta">检索时间：北京时间 2026-10-22 09:34</p>
-      <p class="meta">覆盖范围：优先近 24 小时，扩展至 2026-10-15 至 2026-10-22</p>
-      <p class="meta">实际收录：6 条</p>
-      <p class="note">近七天内只找到 6 条日期与关键事实可核验、且不重复的消息，因此不以旧闻、推广稿或未经证实的信息补足 10 条。</p>
-    </header>
+    <nav><a href="../today.html">返回今日工作台</a></nav>
+    <h1>Manus AI 相关新闻</h1>
+    <div class="meta">检索时间：2026-10-23 09:41（北京时间）</div>
+    <div class="meta">覆盖范围：优先近 24 小时；不足后回溯至 2026-10-16 09:41，共核实 6 条</div>
+    <div class="note">近 24 小时未发现可由官方或可信独立来源确认的新公告。以下均为近 7 天回溯内容；已合并同一事件的重复报道，未采用社区传言、营销软文或日期无法核实的转载。</div>
     <ol>
       <li>
         <h2>Manus Game Dev 加入 3D 角色自动绑定与动画</h2>
-        <p class="date">发布日期：2026-10-21</p>
-        <p>Manus 官方表示，Game Dev 现在可为 3D 角色自动完成骨骼绑定和动画，并称 3D 生成速度提升数倍。独立报道同时指出，底层技术、导出格式与该功能的具体计费尚未披露。</p>
-        <p class="sources">来源：<a href="https://x.com/ManusAI/status/2112929941444776138">Manus 官方 X</a>、<a href="https://artrealmai.com/article/manus-game-dev-auto-rigging-character-animation-3d-games">ArtRealmAI</a></p>
+        <div class="date">发布日期：2026-10-21</div>
+        <p>Manus 表示 Game Dev 现在可自动处理 3D 角色 rigging 与动画，并提升 3D 生成速度，降低浏览器游戏原型制作的手工步骤。</p>
+        <div class="source">来源：<a href="https://x.com/ManusAI/status/2112929941444776138">Manus 官方 X</a>；<a href="https://headsupai.io/ai-news-and-updates/today">HeadsUpAI 独立摘要</a></div>
       </li>
       <li>
-        <h2>OPPO Find X10 全球发布，Agent Mode 正式采用 Manus 能力</h2>
-        <p class="date">发布日期／事件日期：2026-10-21</p>
-        <p>OPPO 在 Find X10 系列全球发布中确认，ColorOS 17 的 AI Mind Pilot Agent Mode 结合 Manus 的智能体能力与系统级整合，可围绕手机中的文件和照片执行多步骤任务。具体市场覆盖和功能开放节奏仍以各地区版本为准。</p>
-        <p class="sources">来源：<a href="https://www.oppo.com/en/newsroom/press/oppo-find-x10-series-global-launch/">OPPO 全球新闻稿</a>、<a href="https://www.oppo.com/en/newsroom/press/oppo-manus/">OPPO 与 Manus 合作公告</a></p>
+        <h2>OPPO Find X10 系列正式落地 Manus 智能体能力</h2>
+        <div class="date">发布日期及事件日期：2026-10-21</div>
+        <p>OPPO 全球发布 Find X10 系列与 ColorOS 17。AI Mind Pilot 的 Agent Mode 结合 Manus 智能体能力，可跨照片、文件与信息完成整理文件、规划旅行、制作演示文稿和网页等多步骤任务。</p>
+        <div class="source">来源：<a href="https://www.oppo.com/en/newsroom/press/oppo-find-x10-series-global-launch/">OPPO 官方新闻稿</a></div>
       </li>
       <li>
-        <h2>独立实测将 Manus 列为研究型交付工具，并提醒人工复核引用</h2>
-        <p class="date">发布日期／测试日期：2026-10-21</p>
-        <p>Ofox 对五款智能体执行了带后续修改的实际工作流；Manus 被用于生成带来源的研究比较。报道认为其交付物可直接使用，但相关性与引用仍需编辑判断，未给出跨产品速度排名。</p>
-        <p class="sources">来源：<a href="https://ofox.ai/blog/ai-agents-late-2026/">Ofox 独立评测</a></p>
+        <h2>Manus Android 端更新至 26.19.1</h2>
+        <div class="date">版本日期：2026-10-21</div>
+        <p>第三方应用分发记录显示 26.19.1 已上线，更新说明继续包含远程控制、Manus Studio 协作、Phone 与 Cloud Computer，以及稳定性修复。该条为开发者签名应用的版本记录，并非 Manus 官方新闻公告。</p>
+        <div class="source">来源：<a href="https://apkpure.net/manus-ai/tech.butterfly.app/versions">APKPure 版本记录</a></div>
       </li>
       <li>
-        <h2>Manus Android 应用发布 26.18.6 版本</h2>
-        <p class="date">发布日期：2026-10-20</p>
-        <p>已签名的 Android 26.18.6 安装包上线，更新说明继续聚焦 Manus 2.0 的远程控制、Studio 协作、Phone 与 Cloud Computer，并包含性能与稳定性修复；该条为第三方应用包镜像记录。</p>
-        <p class="sources">来源：<a href="https://www.apkmirror.com/apk/butterfly-effect-pte-ltd/manus-ai/manus-ai-26-18-6-release/">APKMirror</a></p>
+        <h2>独立实测将 Manus 2.0 Lite 用于带来源的产品比较</h2>
+        <div class="date">发布日期及测试日期：2026-10-21</div>
+        <p>Ofox 的对比文章以实际任务测试 Manus 2.0 Lite，认为其能产出结构清楚、含直接来源链接的比较报告，同时提醒有效链接并不等于每项判断都适合决策，仍需人工编辑核验。</p>
+        <div class="source">来源：<a href="https://ofox.ai/blog/ai-agents-late-2026/">Ofox 独立实测</a></div>
       </li>
       <li>
-        <h2>Manus Fellow AI 电影活动开放临时 Pro 与 20,000 活动积分</h2>
-        <p class="date">活动日期：2026-10-17 至 2026-10-24（跨时区）</p>
-        <p>线上工作坊以 Manus 2.0 制作短片，并配套两天创作挑战。Manus 活动页显示，参与者可在活动期间领取临时 Pro 权限与 20,000 活动积分，资格及有效期以活动页为准。</p>
-        <p class="sources">来源：<a href="https://manus.im/events/EVENT-SMnYWqSuExVEFKGKTbLqus">Manus 活动页</a>、<a href="https://luma.com/d4l05dcw">Luma 活动页</a></p>
+        <h2>Manus Fellow 波士顿活动开放临时 Pro 与 20,000 credits</h2>
+        <div class="date">活动期：2026-10-18 至 2026-10-24（UTC）</div>
+        <p>Manus 官方活动页显示，参与者在活动期可领取临时 Manus Pro 权限及 20,000 credits；配套线上活动围绕使用 Manus 2.0 进行 AI 影视创作。</p>
+        <div class="source">来源：<a href="https://manus.im/events/EVENT-SMnYWqSuExVEFKGKTbLqus">Manus 官方活动页</a>；<a href="https://luma.com/d4l05dcw">Luma 活动说明</a></div>
       </li>
       <li>
-        <h2>Manus 集中展示 Automations 的三类启动方式</h2>
-        <p class="date">发布日期：2026-10-15</p>
-        <p>Manus 重点展示了定时排程、连接应用事件触发，以及组合多个来源和条件的高级自动化 Beta。媒体核对指出，排程并非当天首次上线，事件触发能力属于 Manus 2.0 产品线。</p>
-        <p class="sources">来源：<a href="https://www.linkedin.com/posts/manus-im_you-can-now-put-repetitive-work-on-autopilot-activity-7516514117524963332-l5JP">Manus 官方 LinkedIn</a>、<a href="https://eyerys.com/articles/news/manus-introduces-natural-language-automations-feature-free-users-doing-repetitive-tasks">Eyerys</a>、<a href="https://www.blocktempo.com/manus-automations-autopilot-repetitive-work/">BlockTempo</a></p>
+        <h2>Manus 再推 Automations，报道核实为既有能力的集中宣传</h2>
+        <div class="date">报道日期：2026-10-16；官方宣传事件：2026-10-15</div>
+        <p>报道梳理了定时排程、事件触发和高级自动化三类能力，并指出本次官方社交媒体内容主要是对既有功能的集中推广，而不是一项全新产品发布。</p>
+        <div class="source">来源：<a href="https://www.blocktempo.com/manus-automations-autopilot-repetitive-work/">BlockTempo</a></div>
       </li>
     </ol>
-    <a class="back" href="../today.html">返回今日首页</a>
   </main>
 </body>
 </html>
