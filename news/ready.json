@@ -1,7 +1,7 @@
 {
-  "date": "2026-10-24",
-  "completed_at": "2026-10-24T10:00:12+08:00",
+  "date": "2026-10-26",
+  "completed_at": "2026-10-26T09:15:23+08:00",
   "status": "partial",
-  "note": "热榜 26/26 成功；RSS 4/5 成功，Yahoo Finance RSS 返回 404；Manus AI 近24小时确认1项当日社区活动，回溯7天共核实6条；AI_API_KEY 未配置，AI分析与翻译跳过。",
+  "note": "热榜 26/26 成功；RSS 3/5 成功，Hacker News 请求超时、Yahoo Finance RSS 返回 404，本轮 RSS 新增 0 条；Manus AI 近 24 小时核实 2 项，回溯 7 天共 7 条；AI_API_KEY 未配置，AI 分析与翻译跳过。",
   "manus_available": true
 }
