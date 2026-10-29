@@ -3,88 +3,96 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Manus AI 相关新闻前十 - 2026-10-28</title>
+  <meta name="color-scheme" content="light dark">
+  <title>Manus AI 相关新闻前十｜2026-10-29</title>
   <style>
-    :root { color-scheme: light; --ink:#162033; --muted:#667085; --line:#e4e7ec; --link:#175cd3; --soft:#f8fafc; }
+    :root { color-scheme: light dark; --bg:#f5f7fa; --card:#fff; --text:#162033; --muted:#617086; --line:#dfe5ec; --link:#1769aa; }
+    @media (prefers-color-scheme: dark) { :root { --bg:#101722; --card:#182231; --text:#eef3fa; --muted:#a9b5c5; --line:#2d3a4c; --link:#76b9f5; } }
     * { box-sizing: border-box; }
-    body { margin:0; color:var(--ink); background:#fff; font:16px/1.65 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; }
-    main { width:min(760px,100%); margin:0 auto; padding:20px 18px 48px; }
-    nav { margin-bottom:20px; }
-    nav a { color:var(--link); text-decoration:none; }
-    h1 { margin:0 0 8px; font-size:28px; line-height:1.25; }
-    .meta { margin:0 0 20px; color:var(--muted); font-size:14px; }
-    .notice { margin:0 0 18px; padding:12px 14px; background:var(--soft); border-left:3px solid #84adff; }
+    body { margin:0; background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; line-height:1.55; }
+    main { width:min(720px,100%); margin:0 auto; padding:18px 14px 32px; }
+    nav { margin-bottom:12px; }
+    a { color:var(--link); text-decoration:none; }
+    h1 { margin:0 0 6px; font-size:24px; line-height:1.3; letter-spacing:0; }
+    .meta { margin:0 0 16px; color:var(--muted); font-size:14px; }
     ol { margin:0; padding:0; list-style:none; counter-reset:item; }
-    li { counter-increment:item; padding:16px 0; border-top:1px solid var(--line); }
-    li::before { content:counter(item); display:inline-grid; place-items:center; width:28px; height:28px; margin-right:8px; border-radius:50%; background:#eef4ff; color:#1849a9; font-weight:700; vertical-align:top; }
-    article { display:inline-block; width:calc(100% - 42px); vertical-align:top; }
-    h2 { margin:0 0 6px; font-size:18px; line-height:1.45; }
-    h2 a { color:var(--link); text-decoration:none; overflow-wrap:anywhere; }
-    .date-source { margin:0 0 6px; color:var(--muted); font-size:13px; }
-    p { margin:0; }
-    footer { margin-top:22px; padding-top:14px; border-top:1px solid var(--line); color:var(--muted); font-size:13px; }
-    @media (max-width:480px) { main{padding:16px 14px 40px} h1{font-size:24px} h2{font-size:17px} }
+    li { counter-increment:item; padding:14px 0; border-top:1px solid var(--line); }
+    li::before { content:counter(item); display:inline-grid; place-items:center; width:26px; height:26px; margin-right:7px; border-radius:50%; background:var(--text); color:var(--card); font-size:13px; font-weight:700; vertical-align:2px; }
+    h2 { display:inline; margin:0; font-size:17px; line-height:1.45; letter-spacing:0; }
+    .date { margin:6px 0 3px; color:var(--muted); font-size:13px; }
+    .summary { margin:0 0 5px; font-size:15px; }
+    .source { margin:0; font-size:14px; }
+    footer { margin-top:18px; padding-top:12px; border-top:1px solid var(--line); color:var(--muted); font-size:13px; }
   </style>
 </head>
 <body>
 <main>
-  <nav><a href="../today.html">返回每日日报</a></nav>
+  <nav><a href="../today.html">← 返回今日工作台</a></nav>
   <h1>Manus AI 相关新闻前十</h1>
-  <p class="meta">检索时间：2026-10-28 10:34（北京时间）｜覆盖范围：优先近 24 小时，不足后回溯至 2026-10-21｜实际 10 条</p>
-  <p class="notice">近 24 小时可确认的独立消息不足 10 条，因此按规则回溯最近 7 天。相同事件的多源报道已合并；活动、版本记录和独立测评均按其性质明确标注。</p>
+  <p class="meta">北京时间 2026-10-29 11:26 检索｜覆盖 2026-10-22 至 2026-10-29｜实际 10 条</p>
   <ol>
-    <li><article>
-      <h2><a href="https://manus.im/connectors/coingecko">Manus 上线 CoinGecko MCP 连接器页面</a></h2>
-      <p class="date-source">发布日期：2026-10-27｜来源：Manus 官方</p>
-      <p>新连接器可读取 CoinGecko 的实时与历史市场数据，并生成每日或每周加密市场简报。官方明确其用途限于数据读取与解释，不执行交易或价格预测。</p>
-    </article></li>
-    <li><article>
-      <h2><a href="https://www.chaincatcher.com/article/2299064">张涛披露 Manus 内部的 AI Native 组织改造实践</a></h2>
-      <p class="date-source">报道日期：2026-10-27；原文发布于 2026-10-26｜来源：极客公园 / ChainCatcher</p>
-      <p>Manus 联合创始人张涛介绍团队如何用统一代码入口、并行 Agent、自动化和“数字同事”改造研发、产品与市场协作；报道同时披露高额 AI 成本及其内部验证逻辑。</p>
-    </article></li>
-    <li><article>
-      <h2><a href="https://luma.com/gt88ilcl">Meet Manus 2.0 华盛顿 DC 路演</a></h2>
-      <p class="date-source">活动日期：2026-10-27（当地时间）｜来源：Manus Official Events / Luma</p>
-      <p>Manus 官方活动团队在华盛顿 DC 举办 2.0 路演，面向当地用户介绍产品与使用场景。该条为官方活动动态，不等同于新产品发布。</p>
-    </article></li>
-    <li><article>
-      <h2><a href="https://luma.com/v6fl2l16">日本 Manus Fellow 举办线上实作会</a></h2>
-      <p class="date-source">活动日期：2026-10-27（日本时间）｜来源：Manus Community / Luma</p>
-      <p>日语线上活动包含 Manus 基础说明、自由实作和成果分享，主办方为参与者提供活动期间使用的 5,000 credits，属于社区落地使用案例。</p>
-    </article></li>
-    <li><article>
-      <h2><a href="https://www.apkmirror.com/apk/butterfly-effect-pte-ltd/manus-ai/manus-ai-26-19-3-release/">Manus AI Android 版更新至 26.19.3</a></h2>
-      <p class="date-source">上传日期：2026-10-25｜来源：APKMirror</p>
-      <p>版本记录继续覆盖 Manus 2.0 的 Remote Control、Studio 协作、Phone 与 Cloud Computer，并包含性能和稳定性修复。此处依据第三方安装包目录记录，不代表独立性能评测。</p>
-    </article></li>
-    <li><article>
-      <h2><a href="https://luma.com/4wtxdquz">埃及亚历山大 Manus 2.0 社区见面会</a></h2>
-      <p class="date-source">活动日期：2026-10-24｜来源：Manus Community / Luma</p>
-      <p>当地 Manus Fellow 在 Creativa Innovation Hub 举办社区活动，围绕 Manus 2.0 功能与实际用法展开交流，体现其社区推广继续向更多地区扩展。</p>
-    </article></li>
-    <li><article>
-      <h2><a href="https://www.linkedin.com/posts/manus-im_you-can-now-build-3d-games-with-fluid-expressive-activity-7518696270429908992-Ieay">Manus Game Dev 增加 3D 角色自动绑定与动画</a></h2>
-      <p class="date-source">发布日期：2026-10-21｜来源：Manus 官方 LinkedIn</p>
-      <p>Manus 表示 Game Dev 现可默认处理 3D 角色骨骼绑定和动画，让创作者用自然语言生成带动作的角色；这是对 2.0 游戏开发能力的增量更新。</p>
-    </article></li>
-    <li><article>
-      <h2><a href="https://www.oppo.com/en/newsroom/press/oppo-find-x10-series-global-launch/">OPPO Find X10 全球发布，确认集成 Manus Agent Mode</a></h2>
-      <p class="date-source">发布日期：2026-10-21｜来源：OPPO 官方</p>
-      <p>Find X10 系列与 ColorOS 17 正式亮相，AI Mind Pilot 的 Agent Mode 结合 Manus 能力，可跨照片、文件与在线信息执行多步骤任务；全球供应从 10 月下旬开始。</p>
-    </article></li>
-    <li><article>
-      <h2><a href="https://ofox.ai/blog/ai-agents-late-2026/">独立测评将 Manus 用于有来源的产品比较任务</a></h2>
-      <p class="date-source">发布日期：2026-10-21｜来源：Ofox</p>
-      <p>该测评用 Manus 2.0 Lite 完成三款视频工具的有来源比较，并进行一次定向修订；结论是结构和链接可用，但引用相关性仍需人工编辑判断。</p>
-    </article></li>
-    <li><article>
-      <h2><a href="https://luma.com/lzkfgq5r">Austin 举办 Manus 2.0 After Hours 实作活动</a></h2>
-      <p class="date-source">活动日期：2026-10-21｜来源：Manus Official Events / Luma</p>
-      <p>活动安排 Manus 2.0 简介、现场挑战和交流，由当地社区成员与 Manus 业务负责人参与，属于 2.0 发布后的线下用户教育与社区拓展。</p>
-    </article></li>
+    <li>
+      <h2>Manus 网站可直接安装为桌面应用</h2>
+      <p class="date">发布日期：2026-10-27</p>
+      <p class="summary">Manus 官方宣布，用 Manus 创建的网站现在可直接安装成桌面应用，无需经过应用商店。</p>
+      <p class="source">来源：<a href="https://x.com/ManusAI/status/2115110045977583909" rel="noopener noreferrer">Manus 官方 X</a></p>
+    </li>
+    <li>
+      <h2>Manus 针对 iPhone Duo 双屏布局完成适配</h2>
+      <p class="date">发布日期：2026-10-26</p>
+      <p class="summary">官方展示 Manus 在 iPhone Duo 双屏形态下的界面优化，重点是跨屏任务布局和操作体验。</p>
+      <p class="source">来源：<a href="https://x.com/ManusAI/status/2114735035089928447" rel="noopener noreferrer">Manus 官方 X</a></p>
+    </li>
+    <li>
+      <h2>媒体解读 Manus 2.0“AI 原生组织”方法论</h2>
+      <p class="date">发布日期：2026-10-27（所述文章发表于 2026-10-26）</p>
+      <p class="summary">报道围绕 Manus 联合创始人张涛的新文章，梳理其关于 AI 原生组织、工作流重构和小团队杠杆的观点。</p>
+      <p class="source">来源：<a href="https://www.chaincatcher.com/article/2299064" rel="noopener noreferrer">极客公园 / ChainCatcher</a></p>
+    </li>
+    <li>
+      <h2>Manus 上线 CoinGecko 数据连接器</h2>
+      <p class="date">页面发布日期：2026-10-27</p>
+      <p class="summary">连接器可调用 CoinGecko 的实时及历史加密资产数据，在 Manus 中生成研究简报、图表和分析；功能为只读，不执行交易。</p>
+      <p class="source">来源：<a href="https://manus.im/connectors/coingecko" rel="noopener noreferrer">Manus Connectors</a></p>
+    </li>
+    <li>
+      <h2>Manus 在华盛顿举办 Roadshow</h2>
+      <p class="date">活动日期：2026-10-27</p>
+      <p class="summary">Manus 官方活动页记录了华盛顿站线下演示与社区交流，为近期产品与使用场景提供面对面展示。</p>
+      <p class="source">来源：<a href="https://luma.com/gt88ilcl" rel="noopener noreferrer">Manus Events / Luma</a></p>
+    </li>
+    <li>
+      <h2>Manus Philadelphia Roadshow 展示 2.0 与新功能</h2>
+      <p class="date">活动日期：2026-10-26</p>
+      <p class="summary">费城站活动介绍 Manus 2.0、新功能和实际工作流，并设置现场交流与 Cue 邀请环节。</p>
+      <p class="source">来源：<a href="https://luma.com/p1qvz2e8" rel="noopener noreferrer">Manus Events / Luma</a></p>
+    </li>
+    <li>
+      <h2>Manus Android 26.19.3 版本发布记录出现</h2>
+      <p class="date">上传日期：2026-10-25</p>
+      <p class="summary">第三方版本库记录显示，该版包含 Remote Control、Studio 协作、手机与云端电脑联动及错误修复。</p>
+      <p class="source">来源：<a href="https://www.apkmirror.com/apk/butterfly-effect-pte-ltd/manus-ai/manus-ai-26-19-3-release/" rel="noopener noreferrer">APKMirror</a></p>
+    </li>
+    <li>
+      <h2>Alexandria 社区举办 Manus 2.0 实操交流</h2>
+      <p class="date">活动日期：2026-10-24</p>
+      <p class="summary">由 Manus Fellow 与社区组织的线下活动聚焦 Manus 2.0 演示、实操体验和用户交流。</p>
+      <p class="source">来源：<a href="https://luma.com/4wtxdquz" rel="noopener noreferrer">Luma 活动页</a></p>
+    </li>
+    <li>
+      <h2>创作者实测用 Manus Studio 完成 53 秒竖屏视频</h2>
+      <p class="date">发布日期：2026-10-23</p>
+      <p class="summary">作者记录从分镜、B-roll、字幕到动效和声音设计的完整流程。该文含推荐链接，结论应视为个人使用案例。</p>
+      <p class="source">来源：<a href="https://mattpaige68.substack.com/p/i-edited-an-entire-video-with-manus" rel="noopener noreferrer">Matt Paige / Substack</a></p>
+    </li>
+    <li>
+      <h2>旧金山举行 Hands-On Manus 实操活动</h2>
+      <p class="date">活动日期：2026-10-22</p>
+      <p class="summary">活动由 Manus 与 Hellyeah 联合举办，围绕构建、测试和市场推广的完整 AI 工作流进行现场实践。</p>
+      <p class="source">来源：<a href="https://www.hellyeahai.com/events/hands-on-manus" rel="noopener noreferrer">Hellyeah AI 活动页</a></p>
+    </li>
   </ol>
-  <footer>检索原则：优先官方公告和原始活动页，可信独立报道用于补充；排除同名信息、纯推广、未经证实的传闻和重复转载。</footer>
+  <footer>筛选说明：已合并重复报道，并排除同名企业、纯优惠推广、未经证实传闻和无法核实日期的内容；近 24 小时可靠消息不足 10 条，因此回溯至最近 7 天。</footer>
 </main>
 </body>
 </html>

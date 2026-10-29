@@ -1,7 +1,7 @@
 {
-  "date": "2026-10-28",
-  "completed_at": "2026-10-28T10:35:30+08:00",
+  "date": "2026-10-29",
+  "completed_at": "2026-10-29T11:27:04+08:00",
   "status": "partial",
-  "note": "热榜 26/26 成功；RSS 4/5，Yahoo Finance 源返回 404；RSS 报告有效新增 70 条（数据库写入 71 条）；Manus AI 栏目实际 10 条。AI_API_KEY 未配置，AI 分析与翻译已跳过，不计为新闻抓取失败。",
+  "note": "热榜26/26成功；RSS抓取4/5成功，Yahoo Finance RSS返回404；公开报告展示覆盖3/5；RSS数据库新增52条，按新鲜度口径有效新增51条；Manus AI栏目已核验10条；AI_API_KEY未配置，AI分析/翻译跳过，不影响新闻更新。",
   "manus_available": true
 }
