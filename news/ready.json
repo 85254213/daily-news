@@ -1,7 +1,8 @@
 {
   "date": "2026-11-03",
-  "completed_at": "2026-11-03T17:19:12+08:00",
+  "completed_at": "2026-11-03T18:30:17+08:00",
   "status": "partial",
   "note": "热榜平台 26/26 成功；RSS 3/5 成功，Hacker News 请求超时（15秒），雅虎财经源返回 404；AI_API_KEY 未配置，AI 分析和翻译已跳过，不影响新闻更新。",
-  "manus_available": true
+  "manus_available": true,
+  "grok_available": true
 }

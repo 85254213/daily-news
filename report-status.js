@@ -5,7 +5,8 @@
   else root.ReportStatus = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
-  const DEFAULT_CONFIG = Object.freeze({ hour: 9, minute: 0, graceMinutes: 60 });
+  const DEFAULT_CONFIG = Object.freeze({ hour: 9, minute: 0, graceMinutes: 60,
+    intervalDays: 1, anchorDate: '1970-01-01' });
   const DAY = 86400000, OFFSET = 8 * 3600000;
   const BOARDS = [['hot', '热点榜'], ['seeding', '种草榜'], ['entertainment', '娱乐榜'],
     ['society', '社会榜'], ['challenge', '挑战榜'], ['guangzhou', '广州榜']];
@@ -30,25 +31,35 @@
     for (const [key, max] of [['hour', 23], ['minute', 59], ['graceMinutes', 1440]]) {
       if (!Number.isInteger(config[key]) || config[key] < 0 || config[key] > max) throw new RangeError(`Invalid ${key}`);
     }
+    if (!Number.isInteger(config.intervalDays) || config.intervalDays < 1 || config.intervalDays > 365) throw new RangeError('Invalid intervalDays');
+    if (typeof config.anchorDate !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(config.anchorDate)) throw new RangeError('Invalid anchorDate');
     const now = config.now instanceof Date ? config.now.getTime() : typeof config.now === 'string' ? parseTimestamp(config.now) : config.now ?? Date.now();
     if (!Number.isFinite(now)) throw new RangeError('Invalid now');
     const today = dayKey(now);
     const start = parseTimestamp(today + 'T00:00:00+08:00');
+    const anchor = parseTimestamp(config.anchorDate + 'T00:00:00+08:00');
+    if (anchor === null || dayKey(anchor) !== config.anchorDate) throw new RangeError('Invalid anchorDate');
+    const daysFromAnchor = Math.round((start - anchor) / DAY);
+    const offset = ((daysFromAnchor % config.intervalDays) + config.intervalDays) % config.intervalDays;
+    const scheduledToday = offset === 0;
+    const latestScheduledStart = start - offset * DAY;
     const plannedAt = start + (config.hour * 60 + config.minute) * 60000;
     const todayDeadline = plannedAt + config.graceMinutes * 60000;
-    const cycleOffset = Math.floor((now - todayDeadline) / DAY);
-    const dueDeadline = todayDeadline + cycleOffset * DAY;
-    const requiredDate = dayKey(start + cycleOffset * DAY);
+    const requireCurrent = scheduledToday && now >= todayDeadline;
+    const requiredStart = requireCurrent ? start : scheduledToday ? start - config.intervalDays * DAY : latestScheduledStart;
+    const dueDeadline = requiredStart + (config.hour * 60 + config.minute + config.graceMinutes) * 60000;
+    const requiredDate = dayKey(requiredStart);
     return { now, today, plannedAt, todayDeadline, dueDeadline, requiredDate,
+      scheduledToday, intervalDays: config.intervalDays, anchorDate: config.anchorDate,
       hour: config.hour, minute: config.minute, graceMinutes: config.graceMinutes,
-      planText: `北京时间每天 ${pad(config.hour)}:${pad(config.minute)}，容许延迟 ${config.graceMinutes} 分钟` };
+      planText: `北京时间${config.intervalDays === 1 ? '每天' : '每隔 ' + config.intervalDays + ' 天'} ${pad(config.hour)}:${pad(config.minute)}，容许延迟 ${config.graceMinutes} 分钟` };
   }
 
   function state(validAt, complete, window, hasUndatedRecords = false) {
     const overdue = validAt === null && hasUndatedRecords ? null : validAt === null || dayKey(validAt) < window.requiredDate;
     return { validAt, complete, overdue, status: overdue ? 'overdue' : complete && validAt !== null ? 'normal' : 'incomplete',
       label: overdue ? '更新逾期' : complete && validAt !== null ? '正常' : '不完整',
-      waitingForToday: validAt !== null && dayKey(validAt) < window.today && !overdue,
+      waitingForToday: window.scheduledToday && validAt !== null && dayKey(validAt) < window.today && !overdue,
       window };
   }
 

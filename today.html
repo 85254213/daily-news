@@ -1,25 +1,26 @@
 <!doctype html>
 <html lang="zh-CN"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#f5f7fb"><meta name="description" content="热点新闻与抖音热榜，每天早上九点开始更新，手机免登录阅读。">
+<meta name="theme-color" content="#f5f7fb"><meta name="description" content="热点新闻、抖音热榜、Manus AI 与 Grok 相关新闻，手机免登录阅读。">
 <title>每日日报</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232961ed'/%3E%3Cpath d='M9 9h14M9 16h14M9 23h9' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f5f7fb;color:#152033;font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif}main{max-width:680px;margin:auto;padding:44px 22px 36px}header{margin-bottom:26px}.eyebrow{color:#596780;font-size:13px;letter-spacing:.06em;margin:0 0 9px}h1{font-size:32px;letter-spacing:-.05em;margin:0 0 10px;line-height:1.25}.intro{color:#596780;margin:0}.card{display:block;background:#fff;color:inherit;text-decoration:none;border:1px solid #dee5f0;border-radius:18px;padding:24px;margin:16px 0;box-shadow:0 3px 14px #15203305}.card:active{background:#f0f4ff}.card:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid #2961ed;outline-offset:4px}.card-top{display:flex;align-items:center;justify-content:space-between;gap:12px}h2{font-size:23px;margin:0}.arrow{font-size:25px;color:#2961ed}.desc{font-size:15px;color:#66728a;margin:8px 0 18px}.time{font-size:14px;color:#33445f}.status{display:inline-block;font-size:12px;border-radius:6px;padding:3px 8px;background:#edf3ff;color:#2958ae;margin-top:9px}.subtle{color:#66728a;font-size:13px}.extra{display:block;margin:18px 4px;color:#2961ed;text-decoration:none}button{font:inherit;cursor:pointer;border:1px solid #d9e1ee;background:#fff;color:#33445f;border-radius:10px;padding:10px 16px}.footer{border-top:1px solid #dde4ef;padding-top:20px;margin-top:26px;font-size:13px;color:#66728a}.footer p{margin:6px 0}[hidden]{display:none!important}@media(min-width:700px){main{padding-top:76px}h1{font-size:40px}.card{padding:28px}}
 .card,.time,.subtle{overflow-wrap:anywhere;min-width:0}.status[data-state="normal"]{background:#eaf5ed;color:#23663a}.status[data-state="incomplete"]{background:#fff5dc;color:#7d590e}.status[data-state="overdue"]{background:#fff0ed;color:#9b392b}.coverage{font-size:14px;color:#33445f;margin:9px 0 0}.status-note{margin:9px 0 0}.schedule{font-size:12px;color:#66728a;margin:12px 0 0}.extra{overflow-wrap:anywhere}button:disabled{opacity:.6;cursor:wait}@media(max-width:360px){main{padding:30px 16px}.card{padding:19px}h2{font-size:21px}}
 </style></head><body><main>
-<header><p class="eyebrow" id="today-date">手机阅读 · 公开日报</p><h1>每日日报</h1><p class="intro">每天 09:00 开始更新 · 北京时间</p></header>
+<header><p class="eyebrow" id="today-date">手机阅读 · 公开日报</p><h1>每日日报</h1><p class="intro">各栏目按页面所示计划更新 · 北京时间</p></header>
 <a class="card" id="news-link" href="news/index.html"><div class="card-top"><h2>热点新闻</h2></div><p class="desc">各平台热点与 RSS 资讯，保留原文链接。</p><div class="time" id="news-time">正在读取最近一次报告…</div><p class="coverage" id="news-coverage">正在读取来源覆盖…</p><span class="status" id="news-status" role="status">按实际生成时间展示</span><p class="subtle status-note" id="news-freshness"></p><p class="subtle status-note" id="news-note" hidden></p><p class="schedule" id="news-schedule"></p></a>
 <a class="card" href="index.html"><div class="card-top"><h2>抖音热榜日报</h2></div><p class="desc">六榜各前 50 名，最多 300 条；不足如实标注，历史保留原范围。</p><div class="time" id="douyin-time">正在读取最近一次日报…</div><p class="coverage" id="douyin-coverage">正在读取官方覆盖…</p><span class="status" id="douyin-status" role="status">按实际采集时间展示</span><p class="subtle status-note" id="douyin-freshness"></p><p class="subtle status-note" id="douyin-note" hidden></p><p class="subtle status-note" id="douyin-third-party" hidden></p><p class="schedule" id="douyin-schedule"></p></a>
 <a class="card" href="index.html#opportunities"><div class="card-top"><h2>商品研究候选</h2></div><p class="desc">查看关联商品、用途与规格核对点，区分榜单事实、关联推断和证据缺口。</p><span class="status">随已发布榜单更新 · 购买需求待核实</span></a>
-<a class="extra" id="manus-link" href="news/manus.html" hidden>Manus AI 专栏</a>
+<a class="extra" id="manus-link" href="news/manus.html" hidden>Manus AI 相关新闻前十</a>
+<a class="extra" id="grok-link" href="news/grok.html" hidden>Grok 相关新闻前十</a>
 <button id="refresh" type="button">刷新已发布状态</button>
-<div class="footer"><p>无需登录；使用手机流量或 Wi-Fi 均可阅读。</p><p>刷新只重新读取已发布文件，不触发采集，也不保证立即产生新日报。</p><p>状态按北京时间每日计划及容许延迟判断，当前默认 09:00 + 60 分钟；此设置仅用于页面提示，不改变自动任务。</p><p>公开页面不能判断采集、生成或发布中的具体故障环节；逾期时仍可阅读最近一次内容。</p></div>
+<div class="footer"><p>无需登录；使用手机流量或 Wi-Fi 均可阅读。</p><p>刷新只重新读取已发布文件，不触发采集，也不保证立即产生新日报。</p><p>状态按各栏目的北京时间计划及容许延迟判断；此设置仅用于页面提示，不改变自动任务。</p><p>公开页面不能判断采集、生成或发布中的具体故障环节；逾期时仍可阅读最近一次内容。</p></div>
 </main><script src="report-status.js"></script><script>
 const byId=id=>document.getElementById(id);
 const format=new Intl.DateTimeFormat('zh-CN',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false});
 // Display-only configuration. Both existing scheduled tasks remain unchanged.
-const schedules={douyin:{hour:9,minute:0,graceMinutes:60},news:{hour:9,minute:0,graceMinutes:60},...(window.DAILY_REPORT_SCHEDULES||{})};
+const schedules={douyin:{hour:9,minute:0,graceMinutes:60},news:{hour:9,minute:0,graceMinutes:60,intervalDays:2,anchorDate:'2026-11-01'},...(window.DAILY_REPORT_SCHEDULES||{})};
 async function read(path){const r=await fetch(path,{cache:'no-store'});if(!r.ok)throw new Error('unavailable');const value=await r.json();if(!value||typeof value!=='object'||Array.isArray(value))throw new Error('invalid report metadata');return value}
 function note(id,text){byId(id).textContent=text;byId(id).hidden=!text}
 function renderStatus(prefix,s,label){
@@ -52,7 +53,7 @@ async function refresh(){
       if(s.empty)details.push('本轮来源均未取得有效记录'+(s.latestGeneratedAt!==null?'；报告生成 '+format.format(s.latestGeneratedAt):''));
       if(s.partial)details.push(String(r.date||'')+' · 已记录的内容缺口：'+(s.partialNote||'部分内容未取得，详见新闻报告。'));
       if(s.readyMismatch)details.push('补充就绪记录与新闻正文日期不同；不使用补充时间替代正文生成时间。');
-      if(ready.status==='rejected')details.push('补充状态文件暂未读取，Manus 可用性未核验。');
+      if(ready.status==='rejected')details.push('补充状态文件暂未读取，Manus 与 Grok 栏目可用性未核验。');
       note('news-note',details.join('。'));
     }else unreadable('news');
     if(archive.status==='fulfilled'){
@@ -68,7 +69,13 @@ async function refresh(){
     if(r?.manus_available){
       byId('manus-link').href='news/manus.html?updated='+encodeURIComponent(r.completed_at||r.date||'');
       const time=ReportStatus.parseTimestamp(r.completed_at);
-      byId('manus-link').textContent='Manus AI 专栏'+(time!==null?' · 快照就绪 '+format.format(time):' · 时间详见专栏');
+      byId('manus-link').textContent='Manus AI 相关新闻前十'+(time!==null?' · 快照就绪 '+format.format(time):' · 时间详见专栏');
+    }
+    byId('grok-link').hidden=!r?.grok_available;
+    if(r?.grok_available){
+      byId('grok-link').href='news/grok.html?updated='+encodeURIComponent(r.completed_at||r.date||'');
+      const time=ReportStatus.parseTimestamp(r.completed_at);
+      byId('grok-link').textContent='Grok 相关新闻前十'+(time!==null?' · 快照就绪 '+format.format(time):' · 时间详见专栏');
     }
   }finally{byId('refresh').disabled=false}
 }
