@@ -1,8 +1,8 @@
 {
-  "date": "2026-11-07",
-  "completed_at": "2026-11-07T11:06:31+08:00",
+  "date": "2026-11-09",
+  "completed_at": "2026-11-09T09:08:15+08:00",
   "status": "partial",
-  "note": "热榜平台26/26成功；RSS 4/5成功、雅虎财经源返回404，RSS新增6条；当前榜单630条、存储新闻1600条；AI_API_KEY未配置，仅跳过AI分析和翻译；Manus 3条、Grok 7条，未用旧闻补数。",
+  "note": "热榜平台25/26成功，今日头条接口连续返回500；RSS 4/5成功、雅虎财经源返回404，RSS新增5条；当前榜单620条、存储新闻1202条；AI_API_KEY未配置，仅跳过AI分析和翻译；Manus 3条、Grok 7条，未用旧闻补数。",
   "manus_available": true,
   "grok_available": true
 }
