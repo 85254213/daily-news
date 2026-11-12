@@ -25,6 +25,8 @@
   const title=value.trim().replace(/奶茶妹妹/g,'');
   const nonFood=/吃瓜|饭圈|饭撒|下饭剧|下饭综艺|吃鸡上分|吃鸡游戏|喝彩|茶里茶气|苹果手机|小米发布会|画饼|蛋仔|捏捏|食玩|仿真|奶油胶|黏土|粘土|串珠|拼豆|乐高|玩具|cosplay|\bcos\b|角色扮演|二次元|模拟器|游戏|羽绒服|穿搭|发色|染发|口红|美甲|蛋糕裙|裙子|连衣裙|草莓鼻|眼影|香水|咖啡色|奶茶色|彩妆|妆容|音乐节|演唱会|翻唱|歌词|歌单|歌名|BGM|电影|奥斯卡|票房|定档|电视剧|影集|手势舞|舞蹈|翻跳|育苗|播种|种植|园艺|绿植|盆栽|肥料|土壤|基质|花卉|清洁|去污|除垢|油污|拖把|粘毛器|收纳盒|打架|斗殴|抢劫|刑拘|判刑|绯闻|离婚|我说再喝一碗我熬的茶汤|咖啡馆的那个座位|茶花开了该回家/i;
   if(nonFood.test(title))return null;
+  // Rumour reports and food-word lip-sync memes do not establish an eating scene.
+  if(/辟谣|消费.{0,20}不实|对口型|咒语.{0,8}糖葫芦|(?:玩|挑战).{0,8}麻辣烫糖葫芦|^可以给我买麻辣烫糖葫芦吗[?？]?$/.test(title))return null;
   // Remove show-genre labels, then reuse the food scope with an explicit activity.
   if(/综艺/.test(title)){
    const showScene=title.replace(/(?:美食|烹饪|烹调|料理|做菜|炒菜|下厨|烘焙|吃饭|饮食)?综艺/g,'');
