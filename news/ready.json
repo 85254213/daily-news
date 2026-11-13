@@ -1,8 +1,8 @@
 {
-  "date": "2026-11-11",
-  "completed_at": "2026-11-11T10:50:00+08:00",
+  "date": "2026-11-13",
+  "completed_at": "2026-11-13T09:15:42+08:00",
   "status": "partial",
-  "note": "热榜平台26/26成功；RSS 4/5成功、雅虎财经源返回404，RSS新增13条；当前榜单622条、存储新闻1488条；AI_API_KEY未配置，仅跳过AI分析和翻译；Manus 4条、Grok 7条，未用旧闻补数；本轮因调度延迟于10:43开始抓取。",
+  "note": "热点新闻按用户要求暂停，本轮只更新 Manus AI 与 Grok；Manus 实际4条，Grok 实际7条，均未用旧闻、传闻或重复转载补足10条。",
   "manus_available": true,
   "grok_available": true
 }
